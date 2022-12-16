@@ -3,8 +3,9 @@ language: java
 sudo: false
 jdk: openjdk11
 install: true
+addons:
+  ssh_known_hosts: git@github.com:jardessouza/bookstoremananger.git
 cache:
   directories:
     - $HOME/.m2
-addons:
-  ssh_known_hosts: git@github.com:jardessouza/bookstoremananger.git
+
