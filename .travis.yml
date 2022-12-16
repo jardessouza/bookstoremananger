@@ -2,9 +2,10 @@ dist: xenial
 language: java
 sudo: false
 jdk: openjdk11
-addons:
-  ssh_known_hosts: git@github.com:jardessouza/bookstoremananger.git
 install: true
 cache:
   directories:
     - $HOME/.m2
+
+before_install:
+  - chmod +x mvnw
