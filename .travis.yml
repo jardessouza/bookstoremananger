@@ -9,8 +9,3 @@ cache:
 
 before_install:
   - chmod +x mvnw
-
-after_success: $ travis sshkey --upload ~/.ssh/id_rsa -r myorg/main
-Key description: Key to clone myorg/lib1 and myorg/lib2
-  updating ssh key for myorg/main with key from ~/.ssh/id_rsa
-Current SSH key: Key to clone myorg/lib1 and myorg/lib2
