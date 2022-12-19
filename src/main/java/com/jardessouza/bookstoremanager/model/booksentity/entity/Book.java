@@ -1,9 +1,9 @@
-package com.jardessouza.bookstoremanager.model.booksentity;
+package com.jardessouza.bookstoremanager.model.booksentity.entity;
 
-import com.jardessouza.bookstoremanager.model.authorentity.Author;
+import com.jardessouza.bookstoremanager.model.authorentity.entity.Author;
 import com.jardessouza.bookstoremanager.model.entity.Auditable;
-import com.jardessouza.bookstoremanager.model.pusblisherentity.Publisher;
-import com.jardessouza.bookstoremanager.model.userentity.User;
+import com.jardessouza.bookstoremanager.model.pusblisherentity.entity.Publisher;
+import com.jardessouza.bookstoremanager.model.userentity.entity.User;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
