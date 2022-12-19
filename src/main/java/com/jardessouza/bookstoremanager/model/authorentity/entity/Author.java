@@ -1,10 +1,9 @@
-package com.jardessouza.bookstoremanager.model.authorentity;
+package com.jardessouza.bookstoremanager.model.authorentity.entity;
 
-import com.jardessouza.bookstoremanager.model.booksentity.Book;
+import com.jardessouza.bookstoremanager.model.booksentity.entity.Book;
 import com.jardessouza.bookstoremanager.model.entity.Auditable;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
