@@ -1,6 +1,7 @@
 package com.jardessouza.bookstoremanager.model.booksentity;
 
 import com.jardessouza.bookstoremanager.model.authorentity.Author;
+import com.jardessouza.bookstoremanager.model.entity.Auditable;
 import com.jardessouza.bookstoremanager.model.pusblisherentity.Publisher;
 import com.jardessouza.bookstoremanager.model.userentity.User;
 import lombok.Getter;
@@ -14,7 +15,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @ToString
-public class Book {
+public class Book extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

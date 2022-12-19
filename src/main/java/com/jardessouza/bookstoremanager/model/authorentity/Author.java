@@ -1,6 +1,7 @@
 package com.jardessouza.bookstoremanager.model.authorentity;
 
 import com.jardessouza.bookstoremanager.model.booksentity.Book;
+import com.jardessouza.bookstoremanager.model.entity.Auditable;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -12,7 +13,7 @@ import java.util.List;
 @Table(name = "TB_AUTHORS")
 @Getter
 @Setter
-public class Author {
+public class Author extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
