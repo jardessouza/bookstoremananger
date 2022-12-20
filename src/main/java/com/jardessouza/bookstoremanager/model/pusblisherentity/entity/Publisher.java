@@ -5,6 +5,7 @@ import com.jardessouza.bookstoremanager.model.entity.Auditable;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -26,7 +27,8 @@ public class Publisher extends Auditable {
     @Column(nullable = false, unique = false, length = 100)
     private String code;
 
-    @Column(nullable = false, columnDefinition = "TIMESTAMP")
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false)
     private LocalDate foundationDate;
 
     @OneToMany(mappedBy = "publisher", fetch = FetchType.LAZY)

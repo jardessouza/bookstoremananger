@@ -1,14 +1,17 @@
-package com.jardessouza.bookstoremanager.model.userentity;
+package com.jardessouza.bookstoremanager.model.userentity.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+
 @Getter
-@AllArgsConstructor
 public enum Gender {
     MALE("Male"),
     FEMALE("FEMALE");
 
     private String description;
+    Gender(String description) {
+        this.description = description;
+    }
 
 }
