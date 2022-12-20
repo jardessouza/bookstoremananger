@@ -47,6 +47,8 @@ public class AuthorServiceTest {
         BDDMockito.when(this.authorRepositoryMock.findAll())
                 .thenReturn(List.of(authorDTOBuilder.buildAuthor()));
 
+        BDDMockito.doNothing().when(this.authorRepositoryMock).delete(ArgumentMatchers.any(Author.class));
+
     }
 
     @Test
@@ -116,6 +118,12 @@ public class AuthorServiceTest {
         Assertions.assertThat(authorsListCreate).isEmpty();
         Assertions.assertThat(authorsListCreate).hasSize(0);
 
+    }
+
+    @Test
+    void whenValidAuthorIdIsGivenThenItShouldBeDeleted(){
+        Assertions.assertThatCode(() -> this.authorService.delete(1L))
+                .doesNotThrowAnyException();
     }
 
 

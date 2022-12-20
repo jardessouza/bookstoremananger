@@ -4,7 +4,6 @@ import com.jardessouza.bookstoremanager.model.authorentity.dto.AuthorDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -29,4 +28,10 @@ public interface AuthorControllerDocs {
             @ApiResponse(responseCode = "200", description = "Authors listed sucessful"),
     })
     List<AuthorDTO> listAll();
+    @Operation(summary = "Delete author operation")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Author deleted sucessful"),
+            @ApiResponse(responseCode = "404", description = "Author not found error code")
+    })
+    public void delete(Long id);
 }

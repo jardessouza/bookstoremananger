@@ -44,10 +44,18 @@ public class AuthorService {
                 .collect(Collectors.toList());
     }
 
+    public void delete(Long id){
+        AuthorDTO authorBeCreated = findById(id);
+        Author author = authorMapper.toModel(authorBeCreated);
+        this.authorRepository.delete(author);
+    }
+
     private void verifyIfExists(String authorname) {
         this.authorRepository.findByName(authorname)
                 .ifPresent(author -> {throw new AuthorAlreadyExistsException(authorname); });
     }
+
+
 
 
 }
