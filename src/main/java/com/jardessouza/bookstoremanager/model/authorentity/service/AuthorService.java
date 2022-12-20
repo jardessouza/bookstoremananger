@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AuthorService {
@@ -37,8 +38,10 @@ public class AuthorService {
         return authorMapper.toDTO(foundAuthor);
     }
 
-    public List<Author> listAll(){
-        return this.authorRepository.findAll();
+    public List<AuthorDTO> findAll(){
+        return this.authorRepository.findAll()
+                .stream().map(authorMapper::toDTO)
+                .collect(Collectors.toList());
     }
 
     private void verifyIfExists(String authorname) {
