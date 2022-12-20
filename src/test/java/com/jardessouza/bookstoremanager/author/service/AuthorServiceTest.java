@@ -18,6 +18,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,12 +37,15 @@ public class AuthorServiceTest {
     @BeforeEach
     void setUp(){
         authorDTOBuilder = AuthorDTOBuilder.builder().build();
+
         BDDMockito.when(this.authorRepositoryMock.save(ArgumentMatchers.any(Author.class)))
                 .thenReturn(authorMapper.toModel(authorDTOBuilder.buildAuthorDTO()));
 
         BDDMockito.when(this.authorRepositoryMock.findById(ArgumentMatchers.anyLong()))
                 .thenReturn(Optional.of(authorMapper.toModel(authorDTOBuilder.buildAuthorDTO())));
 
+        BDDMockito.when(this.authorRepositoryMock.findAll())
+                .thenReturn(List.of(authorDTOBuilder.buildAuthor()));
 
     }
 
@@ -85,6 +89,32 @@ public class AuthorServiceTest {
 
         Assertions.assertThatExceptionOfType(AuthorNotFoundException.class)
                 .isThrownBy(() -> this.authorService.findById(1L));
+
+    }
+
+    @Test
+    void whenListAuthorsIsCalledThenItShouldBeReturned(){
+
+        List<AuthorDTO> authorsListCreate = this.authorService.findAll();
+
+        Assertions.assertThat(authorsListCreate)
+                .isNotEmpty()
+                .isNotNull()
+                .hasSize(1);
+
+        Assertions.assertThat(authorsListCreate.get(0).getName()).isEqualTo("Jardes Souza");
+        Assertions.assertThat(authorsListCreate.get(0).getAge()).isEqualTo(32);
+    }
+
+    @Test
+    void whenListAuthorsIsCalledThenItEmptyListShouldBeReturned(){
+        BDDMockito.when(this.authorRepositoryMock.findAll())
+                .thenReturn(Collections.emptyList());
+
+        List<AuthorDTO> authorsListCreate = this.authorService.findAll();
+
+        Assertions.assertThat(authorsListCreate).isEmpty();
+        Assertions.assertThat(authorsListCreate).hasSize(0);
 
     }
 

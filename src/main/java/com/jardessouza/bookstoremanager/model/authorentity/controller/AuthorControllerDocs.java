@@ -6,6 +6,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.List;
+
 public interface AuthorControllerDocs {
 
     @Operation(summary = "Author creation operation")
@@ -21,4 +23,10 @@ public interface AuthorControllerDocs {
             @ApiResponse(responseCode = "404", description = "Author not found error code")
     })
     AuthorDTO findById(Long id);
+
+    @Operation(summary = "Authors list operation")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Authors listed sucessful"),
+    })
+    List<AuthorDTO> listAll();
 }

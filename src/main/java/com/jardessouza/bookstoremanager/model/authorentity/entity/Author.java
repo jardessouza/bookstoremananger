@@ -2,8 +2,7 @@ package com.jardessouza.bookstoremanager.model.authorentity.entity;
 
 import com.jardessouza.bookstoremanager.model.booksentity.entity.Book;
 import com.jardessouza.bookstoremanager.model.entity.Auditable;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -12,6 +11,9 @@ import java.util.List;
 @Table(name = "TB_AUTHORS")
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Author extends Auditable {
 
     @Id
@@ -26,4 +28,5 @@ public class Author extends Auditable {
 
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
     private List<Book> book;
+
 }
