@@ -3,10 +3,13 @@ package com.jardessouza.bookstoremanager.model.authorentity.service;
 import com.jardessouza.bookstoremanager.model.authorentity.dto.AuthorDTO;
 import com.jardessouza.bookstoremanager.model.authorentity.entity.Author;
 import com.jardessouza.bookstoremanager.model.authorentity.exception.AuthorAlreadyExistsException;
+import com.jardessouza.bookstoremanager.model.authorentity.exception.AuthorNotFoundException;
 import com.jardessouza.bookstoremanager.model.authorentity.mapper.AuthorMapper;
 import com.jardessouza.bookstoremanager.model.authorentity.repository.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class AuthorService {
@@ -28,8 +31,20 @@ public class AuthorService {
         return authorMapper.toDTO(createdAuthor);
     }
 
+    public AuthorDTO findById(Long id){
+        Author foundAuthor = this.authorRepository.findById(id)
+                .orElseThrow(() -> new AuthorNotFoundException(id));
+        return authorMapper.toDTO(foundAuthor);
+    }
+
+    public List<Author> listAll(){
+        return this.authorRepository.findAll();
+    }
+
     private void verifyIfExists(String authorname) {
         this.authorRepository.findByName(authorname)
                 .ifPresent(author -> {throw new AuthorAlreadyExistsException(authorname); });
     }
+
+
 }

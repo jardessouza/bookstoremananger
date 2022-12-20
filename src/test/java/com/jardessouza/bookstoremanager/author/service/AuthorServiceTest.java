@@ -4,6 +4,7 @@ import com.jardessouza.bookstoremanager.author.builder.AuthorDTOBuilder;
 import com.jardessouza.bookstoremanager.model.authorentity.dto.AuthorDTO;
 import com.jardessouza.bookstoremanager.model.authorentity.entity.Author;
 import com.jardessouza.bookstoremanager.model.authorentity.exception.AuthorAlreadyExistsException;
+import com.jardessouza.bookstoremanager.model.authorentity.exception.AuthorNotFoundException;
 import com.jardessouza.bookstoremanager.model.authorentity.mapper.AuthorMapper;
 import com.jardessouza.bookstoremanager.model.authorentity.repository.AuthorRepository;
 import com.jardessouza.bookstoremanager.model.authorentity.service.AuthorService;
@@ -17,6 +18,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.List;
 import java.util.Optional;
 
 @ExtendWith(SpringExtension.class)
@@ -36,6 +38,10 @@ public class AuthorServiceTest {
         authorDTOBuilder = AuthorDTOBuilder.builder().build();
         BDDMockito.when(this.authorRepositoryMock.save(ArgumentMatchers.any(Author.class)))
                 .thenReturn(authorMapper.toModel(authorDTOBuilder.buildAuthorDTO()));
+
+        BDDMockito.when(this.authorRepositoryMock.findById(ArgumentMatchers.anyLong()))
+                .thenReturn(Optional.of(authorMapper.toModel(authorDTOBuilder.buildAuthorDTO())));
+
 
     }
 
@@ -60,6 +66,25 @@ public class AuthorServiceTest {
 
         Assertions.assertThatExceptionOfType(AuthorAlreadyExistsException.class)
                 .isThrownBy(() -> this.authorService.create(authorDTOBuilder.buildAuthorDTO()));
+
+    }
+    @Test
+    void whenValidIdIsGivenTheAnAuthorShouldBeReturned(){
+
+        AuthorDTO ExpectedAuthor = this.authorService.findById(1L);
+
+        Assertions.assertThat(ExpectedAuthor.getId()).isNotNull();
+        Assertions.assertThat(ExpectedAuthor.getId()).isEqualTo(1L);
+
+    }
+
+    @Test
+    void whenIdIsNotFoundItReturnsNotFoundException(){
+        BDDMockito.when(this.authorRepositoryMock.findById(ArgumentMatchers.anyLong()))
+                .thenReturn(Optional.empty());
+
+        Assertions.assertThatExceptionOfType(AuthorNotFoundException.class)
+                .isThrownBy(() -> this.authorService.findById(1L));
 
     }
 

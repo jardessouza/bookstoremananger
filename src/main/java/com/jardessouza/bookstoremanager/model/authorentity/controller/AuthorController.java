@@ -22,10 +22,13 @@ public class AuthorController implements AuthorControllerDocs{
     }
 
 
-    @Override
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public AuthorDTO create(@RequestBody @Valid AuthorDTO authorDTO) {
         return authorService.create(authorDTO);
+    }
+    @GetMapping(path = "/{id}")
+    public AuthorDTO findById(@PathVariable Long id) {
+        return authorService.findById(id);
     }
 }
