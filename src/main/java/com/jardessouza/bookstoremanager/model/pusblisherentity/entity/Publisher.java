@@ -2,9 +2,7 @@ package com.jardessouza.bookstoremanager.model.pusblisherentity.entity;
 
 import com.jardessouza.bookstoremanager.model.booksentity.entity.Book;
 import com.jardessouza.bookstoremanager.model.entity.Auditable;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -15,7 +13,9 @@ import java.util.List;
 @Table(name = "TB_PUBLISHERS")
 @Getter
 @Setter
-@ToString
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Publisher extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
