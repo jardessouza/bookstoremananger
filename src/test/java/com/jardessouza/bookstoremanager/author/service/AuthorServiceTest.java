@@ -45,7 +45,7 @@ public class AuthorServiceTest {
                 .thenReturn(Optional.of(authorMapper.toModel(authorDTOBuilder.buildAuthorDTO())));
 
         BDDMockito.when(this.authorRepositoryMock.findAll())
-                .thenReturn(List.of(authorDTOBuilder.buildAuthor()));
+                .thenReturn(List.of(authorDTOBuilder.buildAuthorCreator()));
 
         BDDMockito.doNothing().when(this.authorRepositoryMock).delete(ArgumentMatchers.any(Author.class));
 
@@ -125,6 +125,7 @@ public class AuthorServiceTest {
         Assertions.assertThatCode(() -> this.authorService.delete(1L))
                 .doesNotThrowAnyException();
     }
+
 
 
 }

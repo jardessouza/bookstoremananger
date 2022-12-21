@@ -20,7 +20,7 @@ public class PublisherDTOBuilder {
         return new PublisherDTO(id, name, code, foundationDate);
     }
 
-    public static Publisher publisherCreate(){
+    public Publisher publisherCreate(){
         return Publisher.builder()
                 .id(1L)
                 .name("JS Editora")
