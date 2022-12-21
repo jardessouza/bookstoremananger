@@ -17,7 +17,7 @@ public class AuthorDTOBuilder {
     public AuthorDTO buildAuthorDTO(){
         return new AuthorDTO(id, name, age);
     }
-    public Author buildAuthor(){
+    public Author buildAuthorCreator(){
         return Author.builder()
                 .id(id)
                 .name(name)

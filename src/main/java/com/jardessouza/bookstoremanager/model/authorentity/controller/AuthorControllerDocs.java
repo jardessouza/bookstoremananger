@@ -25,12 +25,12 @@ public interface AuthorControllerDocs {
 
     @Operation(summary = "Authors list operation")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Authors listed sucessful"),
+            @ApiResponse(responseCode = "200", description = "Authors listed sucessfull"),
     })
     List<AuthorDTO> listAll();
     @Operation(summary = "Delete author operation")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "204", description = "Author deleted sucessful"),
+            @ApiResponse(responseCode = "204", description = "Author deleted sucessfull"),
             @ApiResponse(responseCode = "404", description = "Author not found error code")
     })
     public void delete(Long id);
