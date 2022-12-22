@@ -1,11 +1,11 @@
 package com.jardessouza.bookstoremanager.publisher.service;
 
+import com.jardessouza.bookstoremanager.publisher.builder.PublisherDTOBuilder;
 import com.jardessouza.bookstoremanager.pusblisher.dto.PublisherDTO;
 import com.jardessouza.bookstoremanager.pusblisher.entity.Publisher;
 import com.jardessouza.bookstoremanager.pusblisher.mapper.PublisherMapper;
 import com.jardessouza.bookstoremanager.pusblisher.repository.PublisherRepository;
 import com.jardessouza.bookstoremanager.pusblisher.service.PublisherService;
-import com.jardessouza.bookstoremanager.publisher.builder.PublisherDTOBuilder;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
