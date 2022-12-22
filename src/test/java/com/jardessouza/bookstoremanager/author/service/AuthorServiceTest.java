@@ -1,13 +1,12 @@
 package com.jardessouza.bookstoremanager.author.service;
 
 import com.jardessouza.bookstoremanager.author.builder.AuthorDTOBuilder;
-import com.jardessouza.bookstoremanager.model.authorentity.dto.AuthorDTO;
-import com.jardessouza.bookstoremanager.model.authorentity.entity.Author;
-import com.jardessouza.bookstoremanager.model.authorentity.exception.AuthorAlreadyExistsException;
-import com.jardessouza.bookstoremanager.model.authorentity.exception.AuthorNotFoundException;
-import com.jardessouza.bookstoremanager.model.authorentity.mapper.AuthorMapper;
-import com.jardessouza.bookstoremanager.model.authorentity.repository.AuthorRepository;
-import com.jardessouza.bookstoremanager.model.authorentity.service.AuthorService;
+import com.jardessouza.bookstoremanager.author.dto.AuthorDTO;
+import com.jardessouza.bookstoremanager.author.entity.Author;
+import com.jardessouza.bookstoremanager.author.exception.AuthorAlreadyExistsException;
+import com.jardessouza.bookstoremanager.author.exception.AuthorNotFoundException;
+import com.jardessouza.bookstoremanager.author.mapper.AuthorMapper;
+import com.jardessouza.bookstoremanager.author.repository.AuthorRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

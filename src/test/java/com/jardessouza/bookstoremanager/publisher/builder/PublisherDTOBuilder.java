@@ -1,7 +1,7 @@
 package com.jardessouza.bookstoremanager.publisher.builder;
 
-import com.jardessouza.bookstoremanager.model.pusblisherentity.dto.PublisherDTO;
-import com.jardessouza.bookstoremanager.model.pusblisherentity.entity.Publisher;
+import com.jardessouza.bookstoremanager.pusblisher.dto.PublisherDTO;
+import com.jardessouza.bookstoremanager.pusblisher.entity.Publisher;
 import lombok.Builder;
 
 import java.time.LocalDate;

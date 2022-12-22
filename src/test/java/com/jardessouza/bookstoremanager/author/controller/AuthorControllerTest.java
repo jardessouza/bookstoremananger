@@ -1,8 +1,7 @@
 package com.jardessouza.bookstoremanager.author.controller;
 
 import com.jardessouza.bookstoremanager.author.builder.AuthorDTOBuilder;
-import com.jardessouza.bookstoremanager.model.authorentity.controller.AuthorController;
-import com.jardessouza.bookstoremanager.model.authorentity.service.AuthorService;
+import com.jardessouza.bookstoremanager.author.service.AuthorService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
