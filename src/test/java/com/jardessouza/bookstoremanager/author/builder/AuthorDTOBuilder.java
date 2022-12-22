@@ -1,7 +1,7 @@
 package com.jardessouza.bookstoremanager.author.builder;
 
-import com.jardessouza.bookstoremanager.model.authorentity.dto.AuthorDTO;
-import com.jardessouza.bookstoremanager.model.authorentity.entity.Author;
+import com.jardessouza.bookstoremanager.author.dto.AuthorDTO;
+import com.jardessouza.bookstoremanager.author.entity.Author;
 import lombok.Builder;
 
 @Builder
