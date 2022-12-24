@@ -53,7 +53,6 @@ public class UserServiceTest {
                 .thenReturn(Optional.of(userDTOBuilder.createUser()));
 
 
-
     }
 
     @Test
