@@ -60,6 +60,7 @@ public class UserServiceTest {
     void WhenSaveSuccessfulReturnsUser(){
         UserDTO ExpectedUser = userDTOBuilder.builderUserDTO();
 
+
         UserDTO userCreated = this.userService.create(ExpectedUser);
 
         Assertions.assertThat(userCreated.getId()).isNotNull();
