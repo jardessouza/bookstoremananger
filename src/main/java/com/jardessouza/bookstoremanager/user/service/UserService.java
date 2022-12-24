@@ -6,6 +6,7 @@ import com.jardessouza.bookstoremanager.user.exception.UserNotFoundException;
 import com.jardessouza.bookstoremanager.user.mapper.UserMapper;
 import com.jardessouza.bookstoremanager.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,9 +18,11 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public UserDTO create(UserDTO userDTO){
+    private final PasswordEncoder passwordEncoder;
 
+    public UserDTO create(UserDTO userDTO){
         User userToBeCreated = UserMapper.INSTANCE.toModel(userDTO);
+        userToBeCreated.setPassword(passwordEncoder.encode(userToBeCreated.getPassword()));
         User userCreate = this.userRepository.save(userToBeCreated);
         return UserMapper.INSTANCE.toDTO(userCreate);
     }
@@ -40,9 +43,10 @@ public class UserService {
     public void update(UserDTO userDTO){
         User userFound = verifyAndGetIfExists(userDTO.getId());
         userDTO.setId(userFound.getId());
-        User userToBeCreated = UserMapper.INSTANCE.toModel(userDTO);
-        userToBeCreated.setCreatedDate(userFound.getCreatedDate());
-        this.userRepository.save(userToBeCreated);
+        User userToUpdate = UserMapper.INSTANCE.toModel(userDTO);
+        userToUpdate.setPassword(passwordEncoder.encode(userToUpdate.getPassword()));
+        userToUpdate.setCreatedDate(userFound.getCreatedDate());
+        this.userRepository.save(userToUpdate);
 
     }
 
