@@ -14,6 +14,7 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
@@ -28,6 +29,8 @@ public class UserServiceTest {
     @InjectMocks
     private UserService userService;
 
+    @Mock
+    private PasswordEncoder passwordEncoder;
     @Mock
     private UserRepository userRepositoryMock;
 
@@ -49,11 +52,14 @@ public class UserServiceTest {
         BDDMockito.when(this.userRepositoryMock.findByName(ArgumentMatchers.anyString()))
                 .thenReturn(Optional.of(userDTOBuilder.createUser()));
 
+
+
     }
 
     @Test
     void WhenSaveSuccessfulReturnsUser(){
         UserDTO ExpectedUser = userDTOBuilder.builderUserDTO();
+
         UserDTO userCreated = this.userService.create(ExpectedUser);
 
         Assertions.assertThat(userCreated.getId()).isNotNull();
@@ -88,6 +94,8 @@ public class UserServiceTest {
 
     @Test
     void WhenSucceededUpdateUser(){
+
+
         Assertions.assertThatCode(() -> this.userService.update(userDTOBuilder.builderUserDTO()))
                 .doesNotThrowAnyException();
     }
