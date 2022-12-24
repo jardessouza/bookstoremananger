@@ -3,6 +3,7 @@ package com.jardessouza.bookstoremanager.user.builder;
 import com.jardessouza.bookstoremanager.user.dto.UserDTO;
 import com.jardessouza.bookstoremanager.user.entity.User;
 import com.jardessouza.bookstoremanager.user.enums.Gender;
+import com.jardessouza.bookstoremanager.user.enums.Role;
 import lombok.Builder;
 
 import java.time.LocalDate;
@@ -25,6 +26,9 @@ public class UserDTOBuilder {
     @Builder.Default
     private LocalDate birthDate = LocalDate.of(1988, 12,12);
 
+    @Builder.Default
+    private Role role = Role.USER;
+
     public UserDTO builderUserDTO(){
         return new UserDTO(
                 id,
@@ -34,7 +38,9 @@ public class UserDTOBuilder {
                 email,
                 username,
                 password,
-                birthDate);
+                birthDate,
+                role
+        );
     }
 
     public User createUser(){
@@ -46,6 +52,7 @@ public class UserDTOBuilder {
                 .username(username)
                 .password(password)
                 .birthDate(birthDate)
+                .role(role)
                 .build();
     }
 }
