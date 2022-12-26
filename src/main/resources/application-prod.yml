@@ -18,4 +18,8 @@ logging:
   level:
     br:
       com:
-        rodrigopeleias: INFO
+        jardessouza: INFO
+
+jwt:
+  secret: bookstoremanager
+  validity: 18000
