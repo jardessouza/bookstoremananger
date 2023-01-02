@@ -1,11 +1,15 @@
 package com.jardessouza.bookstoremanager.user.controller;
 
+import com.jardessouza.bookstoremanager.user.dto.JwtRequest;
+import com.jardessouza.bookstoremanager.user.dto.JwtResponse;
 import com.jardessouza.bookstoremanager.user.dto.UserDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.validation.Valid;
 import java.util.List;
 
 public interface UserControllerDocs {
@@ -49,6 +53,13 @@ public interface UserControllerDocs {
             @ApiResponse(responseCode = "404", description = "User not found erro code")
     })
     public void delete(@PathVariable Long id);
+
+    @Operation(summary = "User Authetication operation")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Success user authemticated"),
+            @ApiResponse(responseCode = "404", description = "User not found")
+    })
+    JwtResponse createAuthenticationToken(JwtRequest jwtRequest);
 
 
 }

@@ -2,7 +2,7 @@ package com.jardessouza.bookstoremanager.config;
 
 import com.jardessouza.bookstoremanager.user.service.AuthenticationService;
 import com.jardessouza.bookstoremanager.user.service.JwtTokenManager;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,13 +15,17 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
 @Component
-@RequiredArgsConstructor
 public class JwtRequestFilter extends OncePerRequestFilter {
+    @Autowired
+    private AuthenticationService authenticationService;
 
-    private final AuthenticationService authenticationService;
-    private final JwtTokenManager jwtTokenManager;
 
+    private JwtTokenManager jwtTokenManager;
+    public JwtRequestFilter(JwtTokenManager jwtTokenManager) {
+        this.jwtTokenManager = jwtTokenManager;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
@@ -43,21 +47,23 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         filterChain.doFilter(request,response);
     }
 
-    private void addUsernameInContext(HttpServletRequest request, String username, String jwtToken) {
-        UserDetails userDetails = authenticationService.loadUserByUsername(username);
-        if (jwtTokenManager.validateToken(jwtToken,userDetails)){
-            UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
-                    new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-        usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-        SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-        }
-    }
-
     private static boolean isTokenPresent(String requestTokenHeader) {
         return requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ");
     }
 
     private static boolean isUsernameInContext(String username) {
-        return username != null && SecurityContextHolder.getContext().getAuthentication() == null;
+        return !username.isEmpty() && SecurityContextHolder.getContext().getAuthentication() == null;
     }
+
+    private void addUsernameInContext(HttpServletRequest request, String username, String jwtToken) {
+        UserDetails userDetails = authenticationService.loadUserByUsername(username);
+        if (jwtTokenManager.validateToken(jwtToken,userDetails)){
+            UsernamePasswordAuthenticationToken authenticationToken =
+                    new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+        authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+        }
+    }
+
+
 }
