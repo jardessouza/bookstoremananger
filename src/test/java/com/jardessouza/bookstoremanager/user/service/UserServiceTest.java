@@ -110,6 +110,7 @@ public class UserServiceTest {
                 .hasSize(1);
 
         Assertions.assertThat(userList.get(0).getName()).isEqualTo("Jardes Souza");
-
     }
+
+
 }

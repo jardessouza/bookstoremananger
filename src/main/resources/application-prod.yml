@@ -1,4 +1,6 @@
 spring:
+  main:
+    allow-circular-references: true
   datasource:
     url: jdbc:h2:mem:bookstore_prod;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     driverClassName: org.h2.Driver
@@ -22,4 +24,5 @@ logging:
 
 jwt:
   secret: bookstoremanager
-  validity: 18000
+
+

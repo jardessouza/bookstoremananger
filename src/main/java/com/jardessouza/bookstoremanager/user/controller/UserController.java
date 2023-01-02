@@ -1,6 +1,9 @@
 package com.jardessouza.bookstoremanager.user.controller;
 
+import com.jardessouza.bookstoremanager.user.dto.JwtRequest;
+import com.jardessouza.bookstoremanager.user.dto.JwtResponse;
 import com.jardessouza.bookstoremanager.user.dto.UserDTO;
+import com.jardessouza.bookstoremanager.user.service.AuthenticationService;
 import com.jardessouza.bookstoremanager.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -12,13 +15,14 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
-public class UserController implements UserControllerDocs{
+public class UserController implements UserControllerDocs {
 
-    public final UserService userService;
+    private final UserService userService;
+    private final AuthenticationService authenticationService;
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<UserDTO> findAll(){
+    public List<UserDTO> findAll() {
         return this.userService.findAll();
     }
 
@@ -50,5 +54,9 @@ public class UserController implements UserControllerDocs{
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id) {
         userService.delete(id);
+    }
+    @PostMapping(value = "/authenticate")
+    public JwtResponse createAuthenticationToken(@RequestBody @Valid JwtRequest jwtRequest) {
+        return authenticationService.createAuthenticationToken(jwtRequest);
     }
 }
