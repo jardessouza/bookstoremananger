@@ -55,6 +55,11 @@ public class AuthorService {
                 .ifPresent(author -> {throw new AuthorAlreadyExistsException(authorname); });
     }
 
+    public Author verifyAndGetIfExists(Long id) {
+        return this.authorRepository.findById(id)
+                .orElseThrow(() -> new AuthorNotFoundException(id));
+    }
+
 
 
 

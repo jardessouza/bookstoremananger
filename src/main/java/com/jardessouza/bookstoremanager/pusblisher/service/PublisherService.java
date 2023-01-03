@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class PublisherService {
 
-    private PublisherRepository publisherRepository;
+    private final PublisherRepository publisherRepository;
 
     public PublisherDTO create(PublisherDTO publisherDTO){
         Publisher publisherToBeCreated = PublisherMapper.INSTANCE.toModel(publisherDTO);
@@ -39,6 +39,11 @@ public class PublisherService {
         PublisherDTO publisherToBeFound = findById(id);
         Publisher publisherFound = PublisherMapper.INSTANCE.toModel(publisherToBeFound);
         this.publisherRepository.delete(publisherFound);
+    }
+
+    public Publisher verifyAndGetIfExists(Long id){
+        return this.publisherRepository.findById(id)
+                .orElseThrow(() -> new PublishNotFoundException(id));
     }
 
 }

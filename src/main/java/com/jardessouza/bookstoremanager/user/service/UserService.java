@@ -6,6 +6,7 @@ import com.jardessouza.bookstoremanager.user.exception.UserNotFoundException;
 import com.jardessouza.bookstoremanager.user.mapper.UserMapper;
 import com.jardessouza.bookstoremanager.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -65,6 +66,11 @@ public class UserService {
     public User verifyAndGetIfExists(Long id){
         return this.userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));
+    }
+
+    public User verifyAndGetIfExists(String username){
+        return this.userRepository.findByUsername(username)
+                .orElseThrow(() -> new UserNotFoundException(username));
     }
 
 
