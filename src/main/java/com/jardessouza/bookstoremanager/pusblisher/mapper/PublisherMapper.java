@@ -7,7 +7,7 @@ import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
 public interface PublisherMapper {
-    public final static PublisherMapper INSTANCE = Mappers.getMapper(PublisherMapper.class);
+    PublisherMapper INSTANCE = Mappers.getMapper(PublisherMapper.class);
 
     Publisher toModel(PublisherDTO publisherDTO);
 
