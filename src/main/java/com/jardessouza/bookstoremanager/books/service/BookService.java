@@ -6,6 +6,7 @@ import com.jardessouza.bookstoremanager.books.dto.BookRequestDTO;
 import com.jardessouza.bookstoremanager.books.dto.BookResponseDTO;
 import com.jardessouza.bookstoremanager.books.entity.Book;
 import com.jardessouza.bookstoremanager.books.exception.BookAlreadyExistsException;
+import com.jardessouza.bookstoremanager.books.exception.BookNotFoundException;
 import com.jardessouza.bookstoremanager.books.mapper.BookMapper;
 import com.jardessouza.bookstoremanager.books.repository.BookRepository;
 import com.jardessouza.bookstoremanager.pusblisher.entity.Publisher;
@@ -43,6 +44,13 @@ public class BookService {
         Book savedBook = this.bookRepository.save(bookToSave);
 
         return BookMapper.INSTANCE.toDTO(savedBook);
+    }
+
+    public BookResponseDTO findByIdAndUser(AuthenticationUser authenticationUser, Long bookId){
+        User foundAuthenticatorUser = this.userService.verifyAndGetIfExists(authenticationUser.getUsername());
+        return this.bookRepository.findByIdAndUser(bookId, foundAuthenticatorUser)
+                .map(BookMapper.INSTANCE::toDTO)
+                .orElseThrow(() -> new BookNotFoundException(bookId));
     }
 
     private void verifyIfBookIsAlreadyRegistered(User foundUser, BookRequestDTO bookRequestDTO) {
