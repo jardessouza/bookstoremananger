@@ -6,6 +6,8 @@ import com.jardessouza.bookstoremanager.user.dto.AuthenticationUser;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -29,4 +31,12 @@ public interface BookControllerDocs {
             @ApiResponse(responseCode = "200", description = "Book list found by authenticated user informed"),
     })
     public List<BookResponseDTO> findAllByUser(AuthenticationUser authenticationUser);
+
+    @Operation(summary = "Book by user successfuly deleted")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Book by successfuly deleted"),
+            @ApiResponse(responseCode = "404", description = "Book not found error")
+    })
+    public void deleteByIdAndUser(@AuthenticationPrincipal AuthenticationUser authenticationUser,
+                                  @PathVariable Long bookId);
 }

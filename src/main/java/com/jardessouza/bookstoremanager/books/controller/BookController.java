@@ -34,4 +34,13 @@ public class BookController implements BookControllerDocs {
    public List<BookResponseDTO> findAllByUser(@AuthenticationPrincipal AuthenticationUser authenticationUser) {
       return bookService.findAllByUser(authenticationUser);
    }
+
+   @DeleteMapping(value = "/{bookId}")
+   @ResponseStatus(HttpStatus.NO_CONTENT)
+   public void deleteByIdAndUser(@AuthenticationPrincipal AuthenticationUser authenticationUser,
+                                 @PathVariable Long bookId) {
+      bookService.deleteByIdAndUser(authenticationUser, bookId);
+   }
+
+
 }
