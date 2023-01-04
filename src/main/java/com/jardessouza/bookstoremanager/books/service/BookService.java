@@ -17,6 +17,9 @@ import com.jardessouza.bookstoremanager.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class BookService {
@@ -53,11 +56,23 @@ public class BookService {
                 .orElseThrow(() -> new BookNotFoundException(bookId));
     }
 
+    public List<BookResponseDTO> findAllByUser(AuthenticationUser authenticationUser){
+        User foundAuthenticatorUser = this.userService.verifyAndGetIfExists(authenticationUser.getUsername());
+        return this.bookRepository.findAllByUser(foundAuthenticatorUser)
+                .stream()
+                .map(BookMapper.INSTANCE::toDTO)
+                .collect(Collectors.toList());
+    }
+
     private void verifyIfBookIsAlreadyRegistered(User foundUser, BookRequestDTO bookRequestDTO) {
         this.bookRepository
                 .findByNameAndIsbnAndUser(bookRequestDTO.getName(), bookRequestDTO.getIsbn(), foundUser)
                 .ifPresent(duplicateBook -> {throw  new BookAlreadyExistsException(
                         bookRequestDTO.getName(), bookRequestDTO.getIsbn(), foundUser.getUsername());});
     }
+
+
+
+
 
 }
