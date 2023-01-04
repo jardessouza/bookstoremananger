@@ -71,6 +71,24 @@ public class BookService {
         this.bookRepository.deleteByIdAndUser(foundBookToDelete.getId(), foundAuthenticatorUser);
     }
 
+    public BookResponseDTO updateIdAndUser(AuthenticationUser authenticationUser, Long bookId, BookRequestDTO bookRequestDTO){
+        User foundAuthenticatorUser = this.userService.verifyAndGetIfExists(authenticationUser.getUsername());
+        Book foundBook = verifyAndGetIfExists(bookId, foundAuthenticatorUser);
+        Author foundAuthor = this.authorService.verifyAndGetIfExists(bookRequestDTO.getAuthorId());
+        Publisher foundPublisher = this.publisherService.verifyAndGetIfExists(bookRequestDTO.getPublisherId());
+
+        Book bookToUpdate = BookMapper.INSTANCE.toModel(bookRequestDTO);
+        bookToUpdate.setId(foundBook.getId());
+        bookToUpdate.setUser(foundAuthenticatorUser);
+        bookToUpdate.setCreatedDate(foundBook.getCreatedDate());
+        bookToUpdate.setAuthor(foundAuthor);
+        bookToUpdate.setPublisher(foundPublisher);
+
+        Book updateBook = this.bookRepository.save(bookToUpdate);
+
+        return BookMapper.INSTANCE.toDTO(updateBook);
+    }
+
     private Book verifyAndGetIfExists(Long bookId, User foundAuthenticatorUser) {
         return this.bookRepository.findByIdAndUser(bookId, foundAuthenticatorUser)
                 .orElseThrow(() -> new BookNotFoundException(bookId));
@@ -82,6 +100,8 @@ public class BookService {
                 .ifPresent(duplicateBook -> {throw  new BookAlreadyExistsException(
                         bookRequestDTO.getName(), bookRequestDTO.getIsbn(), foundUser.getUsername());});
     }
+
+
 
 
 

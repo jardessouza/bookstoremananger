@@ -41,6 +41,10 @@ public class BookController implements BookControllerDocs {
                                  @PathVariable Long bookId) {
       bookService.deleteByIdAndUser(authenticationUser, bookId);
    }
-
-
+   @PutMapping("/{bookId}")
+   public BookResponseDTO updateIdAndUser(@AuthenticationPrincipal AuthenticationUser authenticationUser,
+                                          @PathVariable Long bookId,
+                                          @RequestBody @Valid BookRequestDTO bookRequestDTO) {
+      return bookService.updateIdAndUser(authenticationUser, bookId, bookRequestDTO);
+   }
 }

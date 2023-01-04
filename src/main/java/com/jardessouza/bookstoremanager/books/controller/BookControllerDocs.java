@@ -32,11 +32,19 @@ public interface BookControllerDocs {
     })
     public List<BookResponseDTO> findAllByUser(AuthenticationUser authenticationUser);
 
-    @Operation(summary = "Book by user successfuly deleted")
+    @Operation(summary = "Book delete operation")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Book by successfuly deleted"),
             @ApiResponse(responseCode = "404", description = "Book not found error")
     })
     public void deleteByIdAndUser(@AuthenticationPrincipal AuthenticationUser authenticationUser,
                                   @PathVariable Long bookId);
+    @Operation(summary = "Book update operation")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Book by successfuly deleted"),
+            @ApiResponse(responseCode = "404", description = "Book not found error"),
+            @ApiResponse(responseCode = "400", description = "Missing required fields")
+    })
+    public BookResponseDTO updateIdAndUser(AuthenticationUser authenticationUser, Long bookId,
+                                           BookRequestDTO bookRequestDTO);
 }
