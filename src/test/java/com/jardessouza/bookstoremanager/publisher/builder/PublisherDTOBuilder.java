@@ -16,7 +16,7 @@ public class PublisherDTOBuilder {
     @Builder.Default
     private final LocalDate foundationDate = LocalDate.of(2020, 6, 1);
 
-    public PublisherDTO publisherDTO() {
+    public PublisherDTO buildPublisherDTO() {
         return new PublisherDTO(id, name, code, foundationDate);
     }
 

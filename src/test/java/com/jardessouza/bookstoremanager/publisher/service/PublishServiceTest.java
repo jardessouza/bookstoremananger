@@ -34,10 +34,10 @@ public class PublishServiceTest {
         publisherDTOBuilder = PublisherDTOBuilder.builder().build();
 
         BDDMockito.when(this.publisherRepositoryMock.save(ArgumentMatchers.any(Publisher.class)))
-                .thenReturn(PublisherMapper.INSTANCE.toModel(publisherDTOBuilder.publisherDTO()));
+                .thenReturn(PublisherMapper.INSTANCE.toModel(publisherDTOBuilder.buildPublisherDTO()));
 
         BDDMockito.when(this.publisherRepositoryMock.findById(ArgumentMatchers.anyLong()))
-                .thenReturn(Optional.of(PublisherMapper.INSTANCE.toModel(publisherDTOBuilder.publisherDTO())));
+                .thenReturn(Optional.of(PublisherMapper.INSTANCE.toModel(publisherDTOBuilder.buildPublisherDTO())));
 
         BDDMockito.when(this.publisherRepositoryMock.findAll())
                 .thenReturn(List.of(publisherDTOBuilder.publisherCreate()));
@@ -47,7 +47,7 @@ public class PublishServiceTest {
 
     @Test
     void WhenSuccessfullyCreateReturnsPublisher(){
-        PublisherDTO publisherToBeCreated = publisherDTOBuilder.publisherDTO();
+        PublisherDTO publisherToBeCreated = publisherDTOBuilder.buildPublisherDTO();
         PublisherDTO publisherCreate = this.publisherService.create(publisherToBeCreated);
 
         Assertions.assertThat(publisherCreate).isNotNull();

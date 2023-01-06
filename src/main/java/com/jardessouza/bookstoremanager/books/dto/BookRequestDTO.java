@@ -3,6 +3,7 @@ package com.jardessouza.bookstoremanager.books.dto;
 import com.jardessouza.bookstoremanager.author.entity.Author;
 import com.jardessouza.bookstoremanager.pusblisher.entity.Publisher;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.ISBN;
@@ -31,7 +32,7 @@ public class BookRequestDTO {
     private Long pages;
     @NotNull
     @Max(100)
-    private Long chapters;
+    private Integer chapters;
     @NotNull
     private Long authorId;
     @NotNull

@@ -22,12 +22,11 @@ public class UserDTOBuilder {
     @Builder.Default
     private String username = "jardessouza";
     @Builder.Default
-    private String password = "dijer433";
+    private String password = "123456";
     @Builder.Default
     private LocalDate birthDate = LocalDate.of(1988, 12,12);
-
     @Builder.Default
-    private Role role = Role.USER;
+    private Role role = Role.ADMIN;
 
     public UserDTO builderUserDTO(){
         return new UserDTO(
