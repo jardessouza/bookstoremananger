@@ -24,7 +24,7 @@ public class BookResponseDTO {
 
     private Long pages;
 
-    private Long chapters;
+    private Integer chapters;
 
     private AuthorDTO author;
 
